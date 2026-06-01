@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>Toepassing — Opleidingsmodule Zekerheidsgraden</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/toc.css">
+</head>
+<body>
+  <div class="container">
+
+    <aside class="toc">
+      <h2><a href="index.html">Inhoud</a></h2>
+      <ul>
+        <li><a href="index.html">Inhoud en situering</a></li>
+        <li>
+          <details class="toc-group">
+            <summary><span class="toc-toggle" aria-hidden="true"></span>Leerpad 1</summary>
+            <ul>
+              <li><a href="lp1-intro.html">Introductie</a></li>
+              <li><a href="inleiding.html">Inleiding</a></li>
+              <li>
+                <details class="toc-group">
+                  <summary>
+                    <span class="toc-toggle" aria-hidden="true"></span>
+                    <a href="evaluatie-mkv.html" class="toc-link">Wat kan je evalueren?</a>
+                  </summary>
+                  <ul>
+                    <li><a href="kennis.html">Kennis (onthouden)</a></li>
+                    <li><a href="inzicht.html">Inzicht (begrijpen)</a></li>
+                    <li><a href="toepassing.html">Toepassing</a></li>
+                    <li><a href="hogere-niveaus.html">Hogere beheersingsniveaus</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li>
+                <details class="toc-group">
+                  <summary>
+                    <span class="toc-toggle" aria-hidden="true"></span>
+                    <a href="kwaliteitszorg.html" class="toc-link">Kwaliteitszorg</a>
+                  </summary>
+                  <ul>
+                    <li><a href="validiteit.html">Validiteit</a></li>
+                    <li><a href="betrouwbaarheid.html">Betrouwbaarheid</a></li>
+                    <li><a href="transparantie.html">Transparantie</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li>
+                <details class="toc-group">
+                  <summary>
+                    <span class="toc-toggle" aria-hidden="true"></span>
+                    <a href="tips.html" class="toc-link">Tips meerkeuzevragen</a>
+                  </summary>
+                  <ul>
+                    <li><a href="tip-een-antwoord.html">Één juist antwoord</a></li>
+                    <li><a href="tip-stam.html">De stam</a></li>
+                    <li><a href="tip-ontkenningen.html">Ontkenningen &amp; negaties</a></li>
+                    <li><a href="tip-stellingvragen.html">Stellingvragen</a></li>
+                    <li><a href="tip-onafhankelijk.html">Onafhankelijke vragen</a></li>
+                    <li><a href="tip-verschillen.html">Duidelijke verschillen</a></li>
+                    <li><a href="tip-geloofwaardig.html">Geloofwaardige antwoorden</a></li>
+                    <li><a href="tip-test-wiseness.html">Test wiseness</a></li>
+                    <li><a href="tip-misleidend.html">Misleidende informatie</a></li>
+                  </ul>
+                </details>
+              </li>
+            </ul>
+          </details>
+        </li>
+        <li>
+          <details class="toc-group">
+            <summary><span class="toc-toggle" aria-hidden="true"></span>Leerpad 2</summary>
+            <ul>
+              <li><a href="lp2-intro.html">Introductie</a></li>
+              <li><a href="zekerheidsanalyse.html">Wat is een zekerheidsanalyse?</a></li>
+              <li>
+                <details class="toc-group">
+                  <summary>
+                    <span class="toc-toggle" aria-hidden="true"></span>
+                    <a href="excel.html" class="toc-link">Zekerheidsanalyse in Excel</a>
+                  </summary>
+                  <ul>
+                    <li><a href="excel-stap1.html">Stap 1: Gegevens invoeren</a></li>
+                    <li><a href="excel-stap2.html">Stap 2: Zekerheidsanalyse</a></li>
+                    <li><a href="excel-stap3.html">Stap 3: Grafiek interpreteren</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li><a href="feedback.html">Feedback op basis van analyse</a></li>
+            </ul>
+          </details>
+        </li>
+      </ul>
+    </aside>
+
+    <main>
+      <h1>Toepassing</h1>
+      <p>Je kan vragen formuleren om te toetsen of leerlingen bepaalde kennis en/of inzichten kunnen <strong>toepassen</strong>. Het antwoord op een toepassingsvraag vind je niet onmiddellijk terug in het studiemateriaal, maar de manier waarop je kennis en/of inzichten kan toepassen kan wel aan bod komen in het studiemateriaal.</p>
+      <img src="assets/Opleidingsmodule_voor_docenten_v2-8_3.png" alt="" class="page-img">
+      <div class="nav"><a class="prev" href="inzicht.html">&#8592; Inzicht (begrijpen)</a><a href="hogere-niveaus.html">Hogere beheersingsniveaus &#8594;</a></div>
+    </main>
+  </div>
+
+<script>
+(function () {
+  const STORAGE_KEY = "toc-open-sections";
+  const detailsList = document.querySelectorAll(".toc details.toc-group");
+  const tocLinks   = document.querySelectorAll(".toc a[href]");
+  const currentPath = location.pathname.split("/").pop();
+
+  const savedState = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+  detailsList.forEach(d => {
+    const t = d.querySelector("summary")?.innerText.trim();
+    if (savedState.includes(t)) d.open = true;
+  });
+
+  if (currentPath) {
+    tocLinks.forEach(link => {
+      if (link.getAttribute("href") === currentPath) {
+        link.classList.add("active");
+        let p = link.parentElement;
+        while (p) { if (p.tagName === "DETAILS") p.open = true; p = p.parentElement; }
+      }
+    });
+  }
+
+  function saveState() {
+    const open = [];
+    detailsList.forEach(d => {
+      if (d.open) { const t = d.querySelector("summary")?.innerText.trim(); if (t) open.push(t); }
+    });
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(open));
+  }
+  detailsList.forEach(d => d.addEventListener("toggle", saveState));
+})();
+</script>
+
+</body>
+</html>
